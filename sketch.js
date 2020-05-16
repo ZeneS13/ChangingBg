@@ -7,11 +7,13 @@ var engine, world;
 var box1, pig1,pig3;
 var backgroundImg,platform;
 var bird, slingshot;
+var bg;
 
 var gameState = "onSling";
 
 function preload() {
-    backgroundImg = loadImage("sprites/bg.png");
+   getBackImg();
+
 }
 
 function setup(){
@@ -45,6 +47,7 @@ function setup(){
 }
 
 function draw(){
+    if(backgroundImg){
     background(backgroundImg);
     Engine.update(engine);
     //strokeWeight(4);
@@ -66,7 +69,8 @@ function draw(){
     bird.display();
     platform.display();
     //log6.display();
-    slingshot.display();    
+    slingshot.display();  
+    }  
 }
 
 function mouseDragged(){
@@ -83,6 +87,24 @@ function mouseReleased(){
 
 function keyPressed(){
     if(keyCode === 32){
-       // slingshot.attach(bird.body);
+       slingshot.attach(bird.body);
     }
+}
+
+async function getBackImg(){
+var response= await fetch("http://worldtimeapi.org/api/timezone/America/Anchorage");
+var JSon= await response.json();
+
+var Dt=JSon.datetime;
+
+var hour= Dt.slice(11,13);
+
+if(hour>6 && hour<18){
+  bg="sprites/bg.png" ;
+}
+else{
+    bg="sprites/bg2.jpg"
+}
+backgroundImg=loadImage(bg);
+
 }
