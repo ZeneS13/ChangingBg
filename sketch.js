@@ -92,7 +92,7 @@ function keyPressed(){
 }
 
 async function getBackImg(){
-var response= await fetch("http://worldtimeapi.org/api/timezone/America/Anchorage");
+var response= await fetch("https://worldtimeapi.org/api/timezone/America/Anchorage");
 var JSon= await response.json();
 
 var Dt=JSon.datetime;
